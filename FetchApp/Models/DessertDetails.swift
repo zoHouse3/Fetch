@@ -20,8 +20,8 @@ struct DessertDetails: Decodable, Identifiable {
     let name: String
     let thumbnailUrlString: String
     let instructions: String
-    let ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, ingredient14, ingredient15, ingredient16, ingredient17, ingredient18, ingredient19, ingredient20: String
-    let measurement1, measurement2, measurement3, measurement4, measurement5, measurement6, measurement7, measurement8, measurement9, measurement10, measurement11, measurement12, measurement13, measurement14, measurement15, measurement16, measurement17, measurement18, measurement19, measurement20: String
+    let ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, ingredient14, ingredient15, ingredient16, ingredient17, ingredient18, ingredient19, ingredient20: String?
+    let measurement1, measurement2, measurement3, measurement4, measurement5, measurement6, measurement7, measurement8, measurement9, measurement10, measurement11, measurement12, measurement13, measurement14, measurement15, measurement16, measurement17, measurement18, measurement19, measurement20: String?
 }
 
 // MARK: Computed Properties
@@ -33,11 +33,13 @@ extension DessertDetails {
     // map each ingredient to its measurement
     var measurementsForIngredient: [String:String] {
         let ingredients = [ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, ingredient14, ingredient15, ingredient16, ingredient17, ingredient18, ingredient19, ingredient20]
-            .filter { (!$0.trimmingCharacters(in: .whitespaces).isEmpty) }
+            .compactMap { $0 }
+            .filter { return (!$0.trimmingCharacters(in: .whitespaces).isEmpty) }
             .uniqued()
         
         let measurements = [measurement1, measurement2, measurement3, measurement4, measurement5, measurement6, measurement7, measurement8, measurement9, measurement10, measurement11, measurement12, measurement13, measurement14, measurement15, measurement16, measurement17, measurement18, measurement19, measurement20]
-            .filter { (!$0.trimmingCharacters(in: .whitespaces).isEmpty) }
+            .compactMap { $0 }
+            .filter { return (!$0.trimmingCharacters(in: .whitespaces).isEmpty) }
         
         return Dictionary(uniqueKeysWithValues: zip(ingredients, measurements))
     }

@@ -27,7 +27,7 @@ struct DessertDetailsView: View {
             }
             .padding()
         }
-        .navigationTitle(viewModel.dessertDetails?.name ?? "Mystery Dessert")
+        .navigationTitle(viewModel.dessertDetails?.name ?? "")
         .onAppear {
             viewModel.getDessertDetails(using: dessertID)
         }
@@ -57,14 +57,7 @@ struct DisplayImage: View {
             .frame(maxWidth: .infinity)
             .aspectRatio(contentMode: .fit)
             .clipShape(RoundedRectangle(cornerRadius: 11))
-        } else {
-            // Display default
-            Image(systemName: "camera.fill")
-                .resizable()
-                .frame(maxWidth: .infinity)
-                .aspectRatio(contentMode: .fit)
-        }
-        
+        }         
     }
 }
 
