@@ -10,8 +10,15 @@ import Combine
 
 class DessertListViewModel: ObservableObject {
     @Published var isLoading: Bool = false
-    var allDesserts: [Dessert] = []
+    @Published var searchText: String = ""
+    
     var cancellables: Set<AnyCancellable> = []
+    
+    var allDesserts: [Dessert] = []
+    var filteredDesserts: [Dessert] {
+        guard !searchText.isEmpty else { return allDesserts }
+        return allDesserts.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+    }
     
     func getAllDesserts() {
         isLoading = true

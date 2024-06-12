@@ -90,7 +90,6 @@ struct IngredientsText: View {
             }
             .padding(.bottom)
             
-            
             if let details = vm.dessertDetails {
                 VStack {
                     ForEach(Array(details.measurementsForIngredient.keys), id: \.self) { key in
@@ -104,7 +103,5 @@ struct IngredientsText: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .background(Color.yellow)
-        
     }
 }

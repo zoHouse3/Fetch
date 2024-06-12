@@ -12,14 +12,15 @@ struct DessertListView: View {
     @StateObject var viewModel = DessertListViewModel()
     
     var body: some View {
-        List(viewModel.allDesserts) { dessert in
+        List(viewModel.filteredDesserts) { dessert in
             VStack {
-                NavigationLink("\(dessert.name): \(dessert.id)") {
+                NavigationLink("\(dessert.name)") {
                     DessertDetailsView(dessertID: dessert.id)
                 }
             }
         }
         .navigationTitle("Desserts 🍰")
+        .searchable(text: $viewModel.searchText, prompt: "search for your favorite desssert")
         .onFirstAppear {
             viewModel.getAllDesserts()
         }
